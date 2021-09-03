@@ -1,0 +1,67 @@
+;
+;       User Asfo
+;       
+;       Input file for md without restraints
+;
+define                   =  
+
+integrator            =  md
+dt                    =  0.002      
+nsteps                =  2500000    
+nstcomm               =  5000  
+nstxout-compressed    =  5000  
+compressed-x-precision = 5000  
+nstlog                =  5000  
+nstenergy             =  5000  
+nstvout               =  5000  
+
+;PBC 
+pbc                      = xyz         
+comm-mode                = linear                       
+comm-grps                = System       
+
+;neighbor searching
+nstlist             =  20 
+ns_type             =  grid
+cutoff-scheme       =  Verlet
+
+;PME
+rlist               = 1.2   
+rlistlong           = 1.6  
+coulombtype         = PME
+rcoulomb            = 1.2   
+fourierspacing      = 0.12
+pme_order           = 4
+vdwtype             = cut-off
+rvdw                = 1.2   
+DispCorr            = EnerPres
+
+; temperature coupling is on in two groups
+Tcoupl              =  V-rescale 
+tc-grps             =  Protein_nct   Water_and_ions  POPC
+tau_t               =    0.1               0.1         0.1
+ref_t               =    310               310         310
+
+; Energy monitoring
+energygrps          =  Protein nct SOL NA CL POPC
+
+; Isotropic pressure coupling is now on
+Pcoupl              =  Berendsen
+Pcoupltype          =  semiisotropic
+tau_p               =  5.0
+compressibility     =  4.5e-5 4.5e-5
+ref_p               =  1.0  1.0
+refcoord-scaling    =  com
+
+; Generate velocites is on at 310 K.
+gen_vel             =  no
+gen_temp            =  310
+gen_seed            = 163531
+
+
+constraint_algorithm=lincs
+lincs_order         = 4
+lincs-warnangle     = 90
+constraints         =  h-bonds
+
+ 

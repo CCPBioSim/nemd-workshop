@@ -1,0 +1,67 @@
+;
+;	File 'topol.top' was generated
+;	By user: ao17905 (334346)
+;	On host: bch-elle
+;	At date: Mon Jul 31 18:03:41 2017
+
+;
+;	This is a standalone topology file
+;
+;	Created by:
+;	                 :-) GROMACS - gmx pdb2gmx, VERSION 5.1.4 (-:
+;	
+;	Executable:   /home/ao17905/my_programs/gromacs-5.1.4_gpu/bin/gmx
+;	Data prefix:  /home/ao17905/my_programs/gromacs-5.1.4_gpu
+;	Command line:
+;	  gmx pdb2gmx -f only_prot2.pdb -o protein_withhydrogens.pdb -p topol.top -i posre.itp -ter -his
+;	Force field was read from current directory or a relative path - path added.
+;
+
+; Include forcefield parameters
+#include "./AMBER99SB-ILDN_SLIPIDS.ff/forcefield.itp"
+
+;include extra non-bonded parameters for ligand
+#include "extra_nct.itp"
+
+; Include chain topologies
+#include "topol_Protein_chain_A.itp"
+#include "topol_Protein_chain_B.itp"
+#include "topol_Protein_chain_C.itp"
+#include "topol_Protein_chain_D.itp"
+#include "topol_Protein_chain_E.itp"
+
+; Include  nct topology
+#include "nct.itp" 
+
+; Include  POPC topology
+#include "POPC.itp" 
+
+; Include water topology
+#include "./AMBER99SB-ILDN_SLIPIDS.ff/tip3p.itp"
+
+#ifdef POSRES_WATER
+; Position restraint for each water oxygen
+[ position_restraints ]
+;  i funct       fcx        fcy        fcz
+   1    1       1000       1000       1000
+#endif
+
+; Include topology for ions
+#include "./AMBER99SB-ILDN_SLIPIDS.ff/ions.itp"
+
+[ system ]
+; Name
+5A7 nAChR with nct inserted into a POPC membrane in water
+
+[ molecules ]
+; Compound        #mols
+Protein_chain_A     1
+Protein_chain_B     1
+Protein_chain_C     1
+Protein_chain_D     1
+Protein_chain_E     1
+nct                 2
+POPC              420
+SOL         62097
+NA               192
+CL               169
