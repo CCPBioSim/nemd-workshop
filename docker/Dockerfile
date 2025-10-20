@@ -1,6 +1,6 @@
 # Start with BioSim base image.
 ARG BASE_IMAGE=latest
-FROM ghcr.io/jimboid/biosim-jupyterhub-base:$BASE_IMAGE
+FROM ghcr.io/ccpbiosim/biosim-jupyterhub-base:$BASE_IMAGE
 
 LABEL maintainer="James Gebbie-Rayet <james.gebbie@stfc.ac.uk>"
 
